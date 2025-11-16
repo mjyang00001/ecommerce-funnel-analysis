@@ -58,7 +58,9 @@ Top 10 items convert at 8 15% (3 6x the overall average), while bottom 10 items 
 ## Technical Stack
 
   **Python**: pandas, numpy, matplotlib, seaborn, plotly
+  
   **Analysis**: Statistical analysis, funnel metrics, conversion rate optimization
+  
   **Visualization**: Multi stage funnel charts, heatmaps, distribution analysis
 
 ## Project Structure
