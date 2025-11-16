@@ -14,7 +14,7 @@ The problem is not cart abandonment—it's product page engagement. Users who ad
 
 **Revenue Opportunity**
 
-Improving View→Cart conversion from 2.69% to just 5% (industry standard) would generate:
+Improving View → Cart conversion from 2.69% to just 5% (industry standard) would generate:
 - 32,000+ additional cart adds
 - 10,000+ additional purchases
 - 85% revenue increase with same traffic volume
