@@ -43,9 +43,10 @@ Top 10 items convert at 8 15% (3 6x the overall average), while bottom 10 items 
 ### Methodology
 1. **Exploratory Data Analysis**: Examined time patterns, validated data quality, analyzed event distribution
 2. **Funnel Analysis**: Calculated user level conversion rates and identified drop off points
-3. **Timing Analysis**: Measured time to conversion by funnel stage
-4. **Item Performance**: Benchmarked product level conversion rates
-5. **Impact Modeling**: Quantified revenue opportunity from optimization
+3. **SQL Implementation**: Replicated analysis in SQL for production scalability
+4. **Timing Analysis**: Measured time to conversion by funnel stage
+5. **Item Performance**: Benchmarked product level conversion rates
+6. **Impact Modeling**: Quantified revenue opportunity from optimization
 
 ### Key Metrics
 
@@ -58,6 +59,8 @@ Top 10 items convert at 8 15% (3 6x the overall average), while bottom 10 items 
 ## Technical Stack
 
   **Python**: pandas, numpy, matplotlib, seaborn, plotly
+
+  **SQL**: duckdb
   
   **Analysis**: Statistical analysis, funnel metrics, conversion rate optimization
   
@@ -75,6 +78,7 @@ ecommerce funnel analysis/
 │   └── 02_funnel_analysis.ipynb
 ├── src/                        # Reusable Python functions
 ├── sql/                        # SQL queries
+│   ├── funnel_queries.sql      # 6 production-ready queries (funnel metrics, cohorts, retention
 ├── requirements.txt
 └── README.md
 ```
