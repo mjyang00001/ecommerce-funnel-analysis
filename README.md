@@ -51,7 +51,7 @@ Top 10 items convert at 8 15% (3 6x the overall average), while bottom 10 items 
 ### Key Metrics
 
 | Metric | Current | Industry Benchmark | Status |
-|        |         |                   |        |
+
 | View → Cart | 2.69% | 5 10% | Below |
 | Cart → Purchase | 31.07% | 25 35% | Good |
 | Overall Conversion | 0.83% | 2 3% | Below |
