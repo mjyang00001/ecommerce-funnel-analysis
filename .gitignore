@@ -15,7 +15,7 @@ __pycache__/
 *.ipynb_checkpoints
 
 # Data files (large CSV files)
-data/events.csv
+data/*.csv
 data/processed/*.csv
 data/processed/*.parquet
 
