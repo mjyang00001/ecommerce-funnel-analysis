@@ -1,122 +1,110 @@
-# Ecommerce Conversion Funnel Analysis
+# E-Commerce Conversion Funnel Analysis
 
-Data driven analysis of 2.7M ecommerce events to identify conversion bottlenecks and quantify revenue opportunities.
+Data-driven root cause analysis of 2.7M e-commerce events across 1.4M users to identify why 97.3% of viewers never add to cart — and what to do about it.
 
-## Key Findings
+---
 
-**Primary Issue: 97.3% Browse to Cart Drop off**
+## The Story
 
-Only 2.69% of viewers add items to cart (vs. 5 10% industry benchmark). This represents 1.36M users lost at the View → Cart stage. Interestingly, checkout performance is strong with 31.07% cart to purchase conversion, which is above the 25 35% industry benchmark.
+### What
+97.3% of viewers never add to cart. View→cart rate is 2.69% vs. a 5–10% industry benchmark. Cart→purchase is strong at 31%, meaning the problem is upstream — users are leaving before they engage, not after.
 
-**Root Cause**
+### Where
+The drop-off is not uniform. Conversion rates vary 30x across product categories. More critically, 60% of all views are on out-of-stock items, which convert at 1.7% vs. 4.5% for in-stock items. Availability alone is a direct, structural driver of the overall rate.
 
-The problem is not cart abandonment it's product page engagement. Users who add to cart convert well, but 97% never make it that far.
+### Who
+Segmenting 1.4M users into four behavioral profiles reveals the aggregate funnel is four different behaviors averaged together:
 
-**Revenue Opportunity**
+| Segment | Users | % of Total | Avg Items/Session | View→Cart | Cart→Purchase |
+|---|---|---|---|---|---|
+| Browser | 1,368,715 | 97.2% | 1.5 | ~0% | — |
+| Cart Abandoner | 27,146 | 1.9% | 4.1 | 28% | 0% |
+| Decisive Buyer | 7,920 | 0.6% | 2.5 | 33% | 100% |
+| Researcher | 3,799 | 0.3% | 30.3 | 12% | 71% |
 
-Improving View → Cart conversion from 2.69% to just 5% (industry standard) would generate:
-  32,000+ additional cart adds
-  10,000+ additional purchases
-  85% revenue increase with same traffic volume
+Browsers — 97% of users — average 1.5 items viewed per session and almost never add to cart. They are not failing to complete checkout; they are never engaging with the catalog deeply enough to find something they want.
 
-## Business Recommendations
+### Why
+Three hypotheses, each grounded in the data:
 
-### 1. Optimize Product Pages (High Impact)
-  Improve product imagery and descriptions
-  Add social proof (reviews, ratings, "bestseller" badges)
-  Implement urgency triggers (limited stock indicators, time limited offers)
-  A/B test "Add to Cart" button placement and copy
+1. **Product discovery gap** — Users viewing 15+ items per session convert at 44.7% vs. 1.4% for single-item sessions (33x gap). Most users never browse deeply enough to find relevant items.
+2. **Category-specific quality gap** — Low-converting categories may have thinner content (fewer images, weaker descriptions, less social proof) relative to high-converting ones.
+3. **Consideration journey gap** — 45.3% of purchasers needed more than one session before buying. There is no re-engagement mechanism to bring interested users back.
 
-### 2. Leverage Timing Insights
-The data shows median conversion time is 20 minutes from first view to purchase, with 50% of users adding to cart within 3 minutes of viewing. This suggests implementing retargeting campaigns for users who viewed but didn't add to cart within 1 hour could capture interested but hesitant shoppers.
+### What to Do
+See `reports/root_cause_analysis.md` for full experiment designs. The highest-leverage intervention is a recommendation carousel on product pages — it targets the Browser segment (97% of users) and is directly testable with a clean A/B design with ~18,000 users per arm and ~7–10 days runtime.
 
-### 3. Product Portfolio Optimization
-Top 10 items convert at 8 15% (3 6x the overall average), while bottom 10 items convert at less than 0.1%. Analyzing top performers for common attributes and either fixing or removing underperformers could significantly improve overall conversion rates.
+---
 
-## Analysis Overview
+## Key Metrics
 
-### Dataset
-  2,756,101 events across 1,407,580 unique users
-  137 day period (May   September 2015)
-  Event types: View, Add to Cart, Transaction
+| Metric | Value | Industry Benchmark | Status |
+|---|---|---|---|
+| View → Cart | 2.69% | 5–10% | Below |
+| Cart → Purchase | 31.07% | 25–35% | Good |
+| Overall Conversion | 0.83% | 2–3% | Below |
+| Cohort stability | ±0.6pp week-over-week | — | Structural, not seasonal |
 
-### Methodology
-1. **Exploratory Data Analysis**: Examined time patterns, validated data quality, analyzed event distribution
-2. **Funnel Analysis**: Calculated user level conversion rates and identified drop off points
-3. **SQL Implementation**: Replicated analysis in SQL for production scalability
-4. **Timing Analysis**: Measured time to conversion by funnel stage
-5. **Item Performance**: Benchmarked product level conversion rates
-6. **Impact Modeling**: Quantified revenue opportunity from optimization
+---
 
-### Key Metrics
+## Notebooks
 
-| Metric | Current | Industry Benchmark | Status |
-<br>
-| View → Cart | 2.69% | 5-10% | Below | <br>
-| Cart → Purchase | 31.07% | 25-35% | Good | <br>
-| Overall Conversion | 0.83% | 2-3% | Below |
+| Notebook | Question |
+|---|---|
+| `01_data_exploration.ipynb` | What does the raw data look like? |
+| `02_data_enrichment.ipynb` | How do we add category and availability data? |
+| `03_funnel_analysis.ipynb` | Where are users dropping off and what's the revenue opportunity? |
+| `04_category_analysis.ipynb` | Is the drop-off uniform across categories? |
+| `05_session_analysis.ipynb` | Does browsing depth predict conversion? |
+| `06_cohort_analysis.ipynb` | Have rates changed over time? |
+| `07_user_segmentation.ipynb` | Who are the users that never convert? |
 
-## Technical Stack
+---
 
-  **Python**: pandas, numpy, matplotlib, seaborn, plotly
+## Reports
 
-  **SQL**: duckdb
-  
-  **Analysis**: Statistical analysis, funnel metrics, conversion rate optimization
-  
-  **Visualization**: Multi stage funnel charts, heatmaps, distribution analysis
+- `reports/root_cause_analysis.md` — Three root cause hypotheses with experiment designs and sample size calculations
+
+---
 
 ## Project Structure
 
 ```
-ecommerce funnel analysis/
+funnel-analysis/
 ├── data/
-│   ├── events.csv              # Raw event data
-│   └── processed/              # Cleaned data
+│   ├── events.csv
+│   ├── item_properties_part1.csv
+│   ├── item_properties_part2.csv
+│   ├── category_tree.csv
+│   └── processed/
+│       ├── events_enriched.csv
+│       └── sessions.csv
 ├── notebooks/
 │   ├── 01_data_exploration.ipynb
-│   └── 02_funnel_analysis.ipynb
-├── src/                        # Reusable Python functions
-├── sql/                        # SQL queries
-│   ├── funnel_queries.sql      # 6 production-ready queries (funnel metrics, cohorts, retention
-├── requirements.txt
-└── README.md
+│   ├── 02_data_enrichment.ipynb
+│   ├── 03_funnel_analysis.ipynb
+│   ├── 04_category_analysis.ipynb
+│   ├── 05_session_analysis.ipynb
+│   ├── 06_cohort_analysis.ipynb
+│   └── 07_user_segmentation.ipynb
+├── reports/
+│   └── root_cause_analysis.md
+├── sql/
+├── src/
+└── requirements.txt
 ```
 
 ## How to Run
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/mjyang00001/ecommerce funnel analysis.git
-   cd ecommerce funnel analysis
-   ```
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+jupyter notebook
+```
 
-2. **Set up environment**
-   ```bash
-   python  m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   pip install  r requirements.txt
-   ```
+Run notebooks in order starting from `01_data_exploration.ipynb`.
 
-3. **Run analysis notebooks**
-   ```bash
-   jupyter notebook
-   ```
-     Start with `notebooks/01_data_exploration.ipynb`
-     Then run `notebooks/02_funnel_analysis.ipynb`
-
-## Results Summary
-
-This analysis demonstrates end to end analytical capabilities: identifying specific problems through data exploration, quantifying business impact, and delivering actionable recommendations prioritized by expected ROI. The findings pinpoint the exact stage of user drop off and calculate the specific revenue opportunity, providing clear direction for product and marketing teams.
-
-## Future Work
-
-  Cohort analysis to track user behavior trends over time
-  User segmentation using RFM analysis and clustering techniques
-  Predictive modeling for purchase probability
-  Interactive dashboard for stakeholder exploration
-
-   
+---
 
 **Author:** Matthew Yang
-**Date:** November 2025
